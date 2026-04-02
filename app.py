@@ -87,11 +87,10 @@ def submit():
     df = processor.read_file(filepath)
 
     # -------- MULTIPROCESSING (plots) --------
-    # Use a process worker entrypoint to avoid pickling bound methods.
     plot_process = run_in_process(generate_plots_in_process, processor.__class__, df)
 
     # -------- GENERATOR USAGE (threaded) --------
-    # Do some row-wise work concurrently while stats are computed.
+    
     row_info = {"rows_processed": 0}
 
     def row_task():
@@ -103,7 +102,6 @@ def submit():
     # -------- CALCULATE STATS --------
     stats = processor.calculate_stats(df)
 
-    # Ensure threaded/generate tasks are done before rendering images/stats.
     row_thread.join()
     plot_process.join()
 

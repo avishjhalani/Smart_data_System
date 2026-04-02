@@ -1,5 +1,3 @@
-// Client-side validation (backend still enforces regex).
-// Keeps UI responsive while meeting the "regex validation" requirement.
 
 const nameRegex = /^[A-Za-z ]{2,}$/;
 const emailRegex = /^[\w\.-]+@[\w\.-]+\.\w+$/;
