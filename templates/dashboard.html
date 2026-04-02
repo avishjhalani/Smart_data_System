@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 text-gray-800">
+
+<!-- NAVBAR -->
+
+<nav class="bg-white/70 backdrop-blur-md border-b border-gray-200 p-4 flex justify-between items-center shadow-sm">
+    <h1 class="text-xl font-bold text-gray-700">📊 Smart Data System</h1>
+    <a href="/" class="bg-indigo-600 text-white px-4 py-1 rounded-lg font-semibold hover:bg-indigo-700 transition">
+        Home
+    </a>
+</nav>
+
+<!-- MAIN -->
+
+<div class="max-w-7xl mx-auto p-6">
+<!-- CONTAINER -->
+<div class="bg-white/60 backdrop-blur-md border border-gray-200 rounded-2xl shadow-lg p-6">
+
+    <h2 class="text-3xl font-bold mb-6 text-gray-800">Dashboard Overview</h2>
+
+    {% if data %}
+
+    <!-- 📊 STATS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+        <div class="bg-white p-5 rounded-xl border shadow-sm hover:shadow-lg transition">
+            <h3 class="text-blue-600 font-semibold mb-3">Mean</h3>
+            {% for key, value in data.mean.items() %}
+            <div class="flex justify-between text-sm py-1 border-b">
+                <span class="text-gray-500 capitalize">{{ key }}</span>
+                <span class="font-semibold">{{ "%.2f"|format(value) }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border shadow-sm hover:shadow-lg transition">
+            <h3 class="text-green-600 font-semibold mb-3">Median</h3>
+            {% for key, value in data.median.items() %}
+            <div class="flex justify-between text-sm py-1 border-b">
+                <span class="text-gray-500 capitalize">{{ key }}</span>
+                <span class="font-semibold">{{ "%.2f"|format(value) }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border shadow-sm hover:shadow-lg transition">
+            <h3 class="text-red-600 font-semibold mb-3">Std Deviation</h3>
+            {% for key, value in data.std.items() %}
+            <div class="flex justify-between text-sm py-1 border-b">
+                <span class="text-gray-500 capitalize">{{ key }}</span>
+                <span class="font-semibold">{{ "%.2f"|format(value) }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <!-- 🔥 BETTER CHARTS -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- SALARY VS EXPERIENCE -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border hover:shadow-lg transition">
+            <h3 class="font-semibold mb-4 text-gray-700">Salary vs Experience</h3>
+            <img src="{{ url_for('static', filename='salary_vs_experience.png') }}?v={{ range(1,1000)|random }}"
+                 class="w-full rounded-lg">
+        </div>
+
+        <!-- SALARY VS AGE -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border hover:shadow-lg transition">
+            <h3 class="font-semibold mb-4 text-gray-700">Salary vs Age</h3>
+            <img src="{{ url_for('static', filename='salary_vs_age.png') }}?v={{ range(1,1000)|random }}"
+                 class="w-full rounded-lg">
+        </div>
+
+    </div>
+
+    <!-- 🔥 CORRELATION -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border mt-6 hover:shadow-lg transition">
+        <h3 class="font-semibold mb-4 text-gray-700">Feature Correlation</h3>
+        <img src="{{ url_for('static', filename='heatmap.png') }}?v={{ range(1,1000)|random }}"
+             class="w-full rounded-lg">
+    </div>
+
+    <!-- 📦 DISTRIBUTION -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border mt-6 hover:shadow-lg transition">
+        <h3 class="font-semibold mb-4 text-gray-700">Distribution</h3>
+        <img src="{{ url_for('static', filename='hist.png') }}?v={{ range(1,1000)|random }}"
+             class="w-full rounded-lg">
+    </div>
+
+    <!-- 📊 BOXPLOT -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border mt-6 hover:shadow-lg transition">
+        <h3 class="font-semibold mb-4 text-gray-700">Outliers & Spread</h3>
+        <img src="{{ url_for('static', filename='boxplot.png') }}?v={{ range(1,1000)|random }}"
+             class="w-full rounded-lg">
+    </div>
+
+    <!-- 📊 BAR CHART -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border mt-6 hover:shadow-lg transition">
+        <h3 class="font-semibold mb-4 text-gray-700">Bar Chart</h3>
+        <img src="{{ url_for('static', filename='bar_chart.png') }}?v={{ range(1,1000)|random }}"
+             class="w-full rounded-lg">
+    </div>
+
+    <!-- 📈 LINE GRAPH -->
+    <div class="bg-white p-6 rounded-xl shadow-sm border mt-6 hover:shadow-lg transition">
+        <h3 class="font-semibold mb-4 text-gray-700">Line Graph</h3>
+        <img src="{{ url_for('static', filename='line_graph.png') }}?v={{ range(1,1000)|random }}"
+             class="w-full rounded-lg">
+    </div>
+
+    {% else %}
+
+    <div class="bg-white p-10 rounded-xl shadow text-center">
+        <h3 class="text-xl font-semibold mb-2">No Data Available</h3>
+        <p class="text-gray-500">Upload a dataset to see analytics</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+</div>
+
+</body>
+</html>
